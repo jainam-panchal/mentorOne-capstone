@@ -17,23 +17,33 @@ const mentorSchema = new mongoose.Schema({
   phone: {
     type: Number
   },
-  sessionPrice: {
-    type: Number
-  },
   role: {
     type: String
   },
-
+  photo: {
+    type: String
+  },
   // Only for mentors
   specialization: {
     type: String
   },
-  qualification: {
+  sessionPrice: {
+    type: Number
+  },
+  timeSlots: {
     type: Array
   },
-  experience: {
+  qualifications: {
     type: Array
   },
+  experiences: {
+    type: Array
+  },
+  yearsOfExp: {
+    type: Number,
+    default: 0
+  },
+  
   bio: {
     type: String,
     maxLength: 50

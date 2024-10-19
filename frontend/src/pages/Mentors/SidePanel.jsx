@@ -1,6 +1,7 @@
-import React from 'react'
+import convertTime from '../../utils/convertTime.js'
 
-const SidePanel = () => {
+const SidePanel = ({ mentorId, sessionPrice, timeSlots }) => {
+  console.log(mentorId, sessionPrice, timeSlots)
   return (
     <div className="shadow-panelShadow shadow-md p-3 lg:p-5 rounded-md">
       <div className="flex items-center justify-between">
@@ -8,7 +9,7 @@ const SidePanel = () => {
           Per Session Cost
         </p>
         <span className="text-[16px] leading-7 lg:text-[22px] lg:leading-8 font-bold text-textColor">
-          10 $
+          {sessionPrice} $
         </span>
       </div>
 
@@ -17,22 +18,17 @@ const SidePanel = () => {
           Available Time Slots:
         </p>
         <ul className="mt-3">
-          <li className="flex items-center justify-between mb-2">
-            <p className="text-[15px] leading-6 text-textColor font-semibold">
-              Saturday
-            </p>
-            <p className="text-[15px] leading-6 text-textColor font-semibold">
-              4:00 PM - 9:30 PM
-            </p>
-          </li>
-          <li className="flex items-center justify-between mb-2">
-            <p className="text-[15px] leading-6 text-textColor font-semibold">
-              Sunday
-            </p>
-            <p className="text-[15px] leading-6 text-textColor font-semibold">
-              4:00 PM - 9:30 PM
-            </p>
-          </li>
+          {timeSlots?.map((item, index) => (
+            <li key={index} className="flex items-center justify-between mb-2">
+              <p className="text-[15px] leading-6 text-textColor font-semibold">
+                {item.day.charAt(0).toUpperCase() + item.day.slice(1)}
+              </p>
+              <p className="text-[15px] leading-6 text-textColor font-semibold">
+                {convertTime(item.startingTime)} -{' '}
+                {convertTime(item.endingTime)}
+              </p>
+            </li>
+          ))}
         </ul>
       </div>
 

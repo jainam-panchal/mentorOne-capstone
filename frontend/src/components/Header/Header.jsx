@@ -2,9 +2,8 @@ import React from 'react'
 import { useEffect, useRef, useContext } from 'react'
 import { NavLink, Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser, faBars } from '@fortawesome/free-solid-svg-icons'
+import { faBars } from '@fortawesome/free-solid-svg-icons'
 
-import mentorPfp from '../../assets/images/mentor_pfp.jpg'
 import { AuthContext } from '../../Context/authContext.jsx'
 import logo from '../../assets/images/logo.svg'
 
@@ -32,21 +31,21 @@ const Header = () => {
   const menuRef = useRef(null)
   const { user, role, token } = useContext(AuthContext)
 
-  const handleStickyHeader = () => {
-    window.addEventListener('scroll', () => {
-      if (head) {
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
         headerRef.current.classList.add('sticky__header')
       } else {
         headerRef.current.classList.remove('sticky__header')
       }
-    })
-  }
+    }
 
-  useEffect(() => {
-    handleStickyHeader()
+    window.addEventListener('scroll', handleScroll)
 
-    return () => window.removeEventListener('scroll', handleStickyHeader)
-  })
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
 
   const toggleMenu = () => menuRef.current.classList.toggle('show__menu')
 
@@ -98,7 +97,7 @@ const Header = () => {
                     />
                   </figure>
 
-                  <h2>{user?.name}</h2>
+                  <h2 className='whitespace-nowrap hidden md:block'>{user?.name}</h2>
                 </Link>
               </div>
             ) : (
@@ -109,7 +108,7 @@ const Header = () => {
               </Link>
             )}
 
-            {/* <h1>{user?.name}</h1> */} 
+            {/* <h1>{user?.name}</h1> */}
 
             <span className="md:hidden" onClick={toggleMenu}>
               <FontAwesomeIcon

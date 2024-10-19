@@ -12,7 +12,7 @@ const generateToken = user => {
 }
 
 export const register = async (req, res) => {
-  const { email, password, name, role, photo, gender } = req.body
+  const { email, password, name, role, photo, gender, bio, about } = req.body
 
   try {
 
@@ -40,7 +40,7 @@ export const register = async (req, res) => {
 
     if (role === 'mentor') {
       user = new Mentor({
-        name, email, password: hashPassword, photo, gender, role, isApproved: "approved"
+        name, email, password: hashPassword, photo, gender, role, isApproved: "approved", bio, about
       })
     }
 

@@ -1,15 +1,51 @@
 import React, { useState } from 'react'
 import { AiFillStar } from 'react-icons/ai'
+import { useParams } from 'react-router-dom'
+
+import { HashLoader } from 'react-spinners'
+import { BASE_URL, token } from '../../../config.js'
+import { toast } from 'react-toastify'
 
 const FeedbackForm = () => {
   const [rating, setRating] = useState(0)
   const [hover, setHover] = useState(0)
   const [reviewText, setReviewText] = useState('')
+  const [loading, setLoading] = useState(false)
+
+  const { id } = useParams()
 
   const handleSubmitReview = async (e) => {
     e.preventDefault()
 
-    // handle with api
+    if (!rating || !reviewText) {
+      toast.error('Rating & Review Text are required')
+      return
+    }
+
+    setLoading(true)
+
+    try {
+      const res = await fetch(`${BASE_URL}/mentors/${id}/reviews`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ rating, reviewText }),
+      })
+
+      const result = await res.json()
+
+      if (!res.ok) {
+        throw new Error(result.message)
+      }
+
+      toast.success(result.message)
+    } catch (err) {
+      toast.error(err.message)
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -55,12 +91,12 @@ const FeedbackForm = () => {
           className="border border-solid border-[#0066ff34] focus:outline outline-primaryColor w-full px-4 py-3 rounded-md"
           id=""
           placeholder="Write your message"
-          onChange={() => setReviewText(e.target.text)}
+          onChange={(e) => setReviewText(e.target.value)}
         ></textarea>
       </div>
 
       <button type="submit" onClick={handleSubmitReview} className="btn">
-        Submit Feedback
+        {loading ? <HashLoader /> : 'Submit Feedback'}
       </button>
     </form>
   )

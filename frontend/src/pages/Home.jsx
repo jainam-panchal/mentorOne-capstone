@@ -5,6 +5,7 @@ import img3 from '../assets/images/how_does_it_work_3.svg'
 import FAQSection from './FAQSection'
 
 import { MentorCard } from '../components/Mentors/MentorCard.jsx'
+import MentorList from '../components/Mentors/MentorList.jsx'
 
 const Home = () => {
   return (
@@ -129,6 +130,19 @@ const Home = () => {
         </div>
       </section>
 
+      <section>
+        <div className="container">
+          <div className="xl:w-[470px] mx-auto">
+            <h2 className="heading text-center mb-3">Our Expert Mentors</h2>
+            <p className="text_para text-center">
+              World-class guidance for everyone. Our mentoring system offers
+              unmatched, expert advice and support.
+            </p>
+          </div>
+          <MentorList />
+        </div>
+      </section>
+
       {/* ============== About us SECTION ============== */}
       {/* <section className="about__section py-[60px] bg-gradient-to-r from-cyan-100 via-slate-100 to-green-50 bg-no-repeat bg-center bg-cover w-full h-auto">
         <div className="container mx-auto px-4">
@@ -148,7 +162,7 @@ const Home = () => {
             </p>
           </div>
         </div>
-      </section> */}  
+      </section> */}
 
       {/* ============== FAQ SECTION ============== */}
 

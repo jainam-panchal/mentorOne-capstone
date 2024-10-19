@@ -6,6 +6,7 @@ export const updateMentor = async (req, res) => {
 
   try {
     const updatedMentor = await Mentor.findByIdAndUpdate(id, { $set: req.body }, { new: true }).select("-password");
+    // console.log(updatedMentor);
     res.status(200).json({ success: true, message: 'Successfully Updated', data: updatedMentor });
   } catch (error) {
     res.status(500).json({ success: false, message: 'Failed to Update' });
@@ -59,10 +60,11 @@ export const getAllMentor = async (req, res) => {
 };
 
 export const getMentorProfile = async (req, res) => {
-  const mentorId = req.mentorId
+  const mentorId = req.userId
 
   try {
     const mentor = await Mentor.findById(mentorId)
+    // console.log(mentor)
     if (!mentor) {
       return res.status(404).json({ success: false, message: 'User not found' })
     }

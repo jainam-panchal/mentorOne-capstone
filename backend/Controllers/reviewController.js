@@ -5,10 +5,9 @@ import Mentor from '../models/MentorSchema.js'
 export const getAllReviews = async (req, res) => {
   try {
     const reviews = await Review.find({})
-
-    res.status(200).json({ success: true, message: 'Successful', data: reviews })
+    res.status(200).json({ success: true, message: 'Reviews fetched successfully', data: reviews })
   } catch (err) {
-    res.status(500).json({ success: false, message: 'Not Found' })
+    res.status(500).json({ success: false, message: 'Failed to fetch reviews', error: err.message })
   }
 }
 
@@ -25,8 +24,8 @@ export const createReview = async (req, res) => {
       $push: { reviews: savedReview._id }
     })
 
-    res.status(200).json({ success: true, message: 'Review Submitted', data: savedReview })
+    res.status(200).json({ success: true, message: 'Review submitted successfully', data: savedReview })
   } catch (err) {
-    res.status(500).json({ success: false, message: err.message })
+    res.status(500).json({ success: false, message: 'Failed to submit review', error: err.message })
   }
 }
