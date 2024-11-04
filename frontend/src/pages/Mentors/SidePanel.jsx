@@ -21,7 +21,7 @@ const SidePanel = ({ mentorId, sessionPrice, timeSlots }) => {
         throw new Error(data.message + 'Please try again')
       }
 
-      console.log(data)
+      // console.log(data)
 
       if (data.session.url) {
         window.location.href = data.session.url
@@ -31,7 +31,7 @@ const SidePanel = ({ mentorId, sessionPrice, timeSlots }) => {
     }
   }
 
-  console.log(mentorId, sessionPrice, timeSlots)
+  // console.log(mentorId, sessionPrice, timeSlots)
   return (
     <div className="shadow-panelShadow shadow-md p-3 lg:p-5 rounded-md">
       <div className="flex items-center justify-between">

@@ -48,7 +48,7 @@ export const register = async (req, res) => {
 
     res.status(200).json({ success: true, message: 'User successfully created' })
   } catch (error) {
-    console.log(error)
+    // console.log(error)
     res.status(500).json({ success: false, message: 'Internal server error, Try again' })
   }
 }
@@ -84,7 +84,7 @@ export const login = async (req, res) => {
     const token = generateToken(user)
 
     const { password: userPassword, role, sessions, ...rest } = user._doc
-    console.log(user)
+    // console.log(user)
 
     res.status(200).json({
       status: true,
@@ -95,7 +95,7 @@ export const login = async (req, res) => {
     })
 
   } catch (error) {
-    console.log(error)
+    // console.log(error)
     return res.status(500).json({ status: false, message: "Failed to login" })
   }
 }

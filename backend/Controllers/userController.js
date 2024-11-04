@@ -77,3 +77,31 @@ export const getMySessions = async (req, res) => {
     return res.status(500).json({ success: false, message: 'Something went wrong. Couldn\'t fetch sessions' });
   }
 };
+
+export const getMySessions2 = async (req, res) => {
+  try {
+    const sessions = await Session.find({ user: req.userId });
+
+    const mentorIds = sessions.map(el => el.mentor);
+
+    const mentors = await Mentor.find({ _id: { $in: mentorIds } }).select('-password');
+
+    // Map sessions to include both session data and mentor details
+    const sessionsWithMentors = sessions.map(session => {
+      const mentor = mentors.find(mentor => mentor._id.equals(session.mentor));
+      
+      // console.log('Session:', session);
+      // console.log('Mentor:', mentor);
+
+      return {
+        sessionData: session,
+        mentorDetails: mentor,
+      };
+    });
+
+    res.status(200).json({ success: true, message: 'Sessions are getting fetched', data: sessionsWithMentors });
+
+  } catch (err) {
+    return res.status(500).json({ success: false, message: 'Something went wrong. Couldn\'t fetch sessions' });
+  }
+};

@@ -19,7 +19,7 @@ const MyAccount = () => {
     error,
   } = useGetProfile(`${BASE_URL}/users/profile/me`)
 
-  console.log(userData)
+  // console.log(userData)
 
   const handleLogout = () => {
     dispatch({ type: 'LOGOUT' })
@@ -52,8 +52,6 @@ const MyAccount = () => {
                 <p className="text-textColor text-[15px] leading-6 font-medium">
                   {userData.email}
                 </p>
-                {/* <p className="text-textColor text-[15px] leading-6 font-medium">
-            </p> */}
               </div>
 
               <div className="mt-[100px] md:mt-[100px]">
@@ -92,8 +90,10 @@ const MyAccount = () => {
                 </button>
               </div>
 
-              {tab === 'sessions' && <MySessions />}
-              {tab === 'settings' && <Profile user={userData} />}
+              <div className="mt-[50px] min-h-[500px]">
+                {tab === 'sessions' && <MySessions />}
+                {tab === 'settings' && <Profile user={userData} />}
+              </div>
             </div>
           </div>
         )}

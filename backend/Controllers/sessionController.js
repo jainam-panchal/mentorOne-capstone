@@ -7,7 +7,14 @@ export const getCheckoutSession = async (req, res) => {
   try {
     // Get currently booked mentor
     const mentor = await Mentor.findById(req.params.mentorId);
+    if (!mentor) {
+      return res.status(404).json({ success: false, message: 'Mentor not found' });
+    }
+
     const user = await User.findById(req.userId);
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'Mentors are not supposed to do that.' });
+    }
 
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -39,14 +46,19 @@ export const getCheckoutSession = async (req, res) => {
       mentor: mentor._id,
       user: user._id,
       sessionPrice: mentor.sessionPrice,
-      session: session.id,  
+      session: session.id,
     });
 
     await newSession.save();
 
+    mentor.sessions.push(newSession._id);
+    await mentor.save();
+
+    await mentor.populate('sessions');
+
     res.status(200).json({ success: true, message: 'Successfully Paid', session });
   } catch (err) {
-    console.log(err)
+    console.log(err);
     res.status(500).json({ success: false, message: 'Error creating checkout session' });
   }
 };

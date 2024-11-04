@@ -1,30 +1,17 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { formateDate } from '../../utils/formateDate.js'
 
 import mentorPfp from '../../assets/images/mentor_pfp.jpg'
 import starIcon from '../../assets/images/Star.png'
 import { BsArrowRight } from 'react-icons/bs'
 
-export const MentorCard = ({ mentor }) => {
-  const mentorDetails = {
-    id: '02',
-    name: 'Jane Smith',
-    specialty: 'Physics',
-    avgRating: 4.7,
-    totalRating: 250,
-    photo: mentorPfp,
-    totalMentees: 1100,
-    experience: 8,
-  }
-
-  // console.log(mentor)
-
+export const MentorCard = ({ mentor, isSession, sessionId, createdAt }) => {
   return (
-    // <div className="p-4 lg:p-6 shadow-lg border rounded-lg w-full max-w-sm mx-auto bg-gradient-to-b from-white via-gray-50 to-gray-100">
     <div className="p-4 lg:p-6 rounded-lg w-full max-w-sm mx-auto">
       <div className="flex justify-center">
         <img
-          src={mentor.photo}
+          src={mentor.photo || mentorPfp}
           className="w-full h-auto max-w-xs rounded-lg shadow-md"
           alt="Mentor"
         />
@@ -54,18 +41,25 @@ export const MentorCard = ({ mentor }) => {
 
       <div className="mt-5 lg:mt-6 flex items-center justify-between">
         <div>
-          <h3 className="text-[14px] lg:text-[16px] leading-6 lg:leading-[24px] font-semibold text-headingColor">
-            {/* {mentor.experiences && experiences[0]?.organization} Students */}
-            At {mentor.experiences && mentor.experiences[0]?.organization}
-          </h3>
-          <p className="text-[12px] lg:text-[14px] leading-5 font-normal text-textColor">
-            {mentor.yearsOfExp} Years of Experience
-          </p>
+          {isSession ? (
+            <h3 className="text-[14px] lg:text-[16px] leading-6 lg:leading-[24px] font-semibold text-headingColor">
+              Booked on  {formateDate(new Date(createdAt), 'Date')}
+            </h3>
+          ) : (
+            <>
+              <h3 className="text-[14px] lg:text-[16px] leading-6 lg:leading-[24px] font-semibold text-headingColor">
+                At {mentor.experiences && mentor.experiences[0]?.organization}
+              </h3>
+              <p className="text-[12px] lg:text-[14px] leading-5 font-normal text-textColor">
+                {mentor.yearsOfExp} Years of Experience
+              </p>
+            </>
+          )}
         </div>
 
         <Link
-          to={`/mentors/${mentor._id}`}
-          className="w-[45px] h-[45px] rounded-full border border-solid border-[#181A1E] flex items-center justify-center group  shadow-md"
+          to={isSession ? `/session/${sessionId}` : `/mentors/${mentor._id}`}
+          className="w-[45px] h-[45px] rounded-full border border-solid border-[#181A1E] flex items-center justify-center group shadow-md"
         >
           <BsArrowRight className="w-6 h-6" />
         </Link>

@@ -37,7 +37,7 @@ const sessionSchema = new mongoose.Schema(
 sessionSchema.pre(/^find/, function (next) {
   this.populate('user').populate({
     path: 'mentor',
-    select: 'name'
+    select: '-password -timeSlots '
   });
   next();
 });

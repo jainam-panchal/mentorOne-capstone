@@ -1,6 +1,6 @@
 import express from 'express'
 
-import { updateUser, deleteUser, getAllUser, getSingleUser, getUserProfile, getMySessions } from "../Controllers/userController.js";
+import { updateUser, deleteUser, getAllUser, getSingleUser, getUserProfile, getMySessions, getMySessions2 } from "../Controllers/userController.js";
 import { authenticate, restrict } from "../auth/verifyToken.js";
 
 
@@ -11,7 +11,7 @@ router.get('/', authenticate, restrict(['admin']), getAllUser)
 router.put('/:id', authenticate, restrict(['student']), updateUser)
 router.delete('/:id', authenticate, restrict(['student']), deleteUser)
 router.get('/profile/me', authenticate, restrict(['student']), getUserProfile)
-router.get('/sessions/my-sessions', authenticate, restrict(['student']), getMySessions)
+router.get('/sessions/my-sessions', authenticate, restrict(['student']), getMySessions2)
 
 
 export default router

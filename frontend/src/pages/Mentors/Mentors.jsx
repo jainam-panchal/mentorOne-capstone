@@ -12,7 +12,7 @@ const Mentors = () => {
 
   const handleSearch = () => {
     setQuery(query.trim())
-    console.log('handle search')
+    // console.log('handle search')
   }
 
   useEffect(() => {

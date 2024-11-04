@@ -13,6 +13,8 @@ const MySession = () => {
     error,
   } = useFetchData(`${BASE_URL}/users/sessions/my-sessions`)
 
+  // console.log(sessions)
+
   return (
     <div>
       {loading && !error && <Loading />}
@@ -21,8 +23,14 @@ const MySession = () => {
 
       {!loading && !error && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-          {sessions.map((mentor) => (
-            <MentorCard mentor={mentor} key={mentor._id} />
+          {sessions.map((session) => (
+            <MentorCard
+              mentor={session.sessionData.mentor}
+              key={session._id}
+              isSession
+              sessionId={session.sessionData._id}
+              createdAt={session.sessionData.createdAt}
+            />
           ))}
         </div>
       )}

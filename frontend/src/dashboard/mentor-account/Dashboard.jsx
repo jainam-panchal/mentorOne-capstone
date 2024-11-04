@@ -16,7 +16,8 @@ const Dashboard = () => {
     `${BASE_URL}/mentors/profile/me`
   )
 
-  console.log(data)
+
+  // console.log(data)
 
   const [tab, setTab] = useState('overview')
 
