@@ -54,8 +54,6 @@ reviewSchema.statics.calcAverageRatings = async function (mentorId) {
     }
   ]);
 
-  console.log(stats);
-
   if (stats.length > 0) {
     await this.model('Mentor').findByIdAndUpdate(mentorId, {
       totalRating: stats[0].numOfRating,

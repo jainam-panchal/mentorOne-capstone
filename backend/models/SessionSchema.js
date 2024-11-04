@@ -15,7 +15,7 @@ const sessionSchema = new mongoose.Schema(
     sessionPrice: { type: String, required: true },
     sessionDate: {
       type: Date,
-      required: true,
+      // required: true,
     },
     status: {
       type: String,
@@ -26,8 +26,21 @@ const sessionSchema = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
+    meetingUrl: {
+      type: String,
+      default: ''
+    }
   },
   { timestamps: true }
 );
 
-export default mongoose.model("Session", sessionSchema);
+sessionSchema.pre(/^find/, function (next) {
+  this.populate('user').populate({
+    path: 'mentor',
+    select: 'name'
+  });
+  next();
+});
+
+
+export default mongoose.model("Session", sessionSchema);  

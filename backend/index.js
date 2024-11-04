@@ -8,6 +8,7 @@ import authRouter from './Routes/auth.js'
 import userRouter from './Routes/user.js'
 import mentorRouter from './Routes/mentor.js'
 import reviewRoute from './Routes/review.js'
+import sessionRoute from './Routes/session.js'
 
 dotenv.config()
 
@@ -50,6 +51,7 @@ app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/users', userRouter)
 app.use('/api/v1/mentors', mentorRouter)
 app.use('/api/v1/reviews', reviewRoute)
+app.use('/api/v1/sessions', sessionRoute)
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}...`)

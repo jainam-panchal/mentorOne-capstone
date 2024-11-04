@@ -8,6 +8,8 @@ import Services from '../pages/Services'
 import Mentors from '../pages/Mentors/Mentors'
 import MentorDetails from '../pages/Mentors/MentorDetails'
 import Contact from '../pages/Contact'
+import CheckoutSuccess from '../pages/CheckoutSuccess.jsx'
+import Session from '../pages/Session.jsx'
 
 import MyAccount from '../dashboard/user-account/MyAccount.jsx'
 import Dashboard from '../dashboard/mentor-account/Dashboard.jsx'
@@ -24,7 +26,10 @@ const Router = () => {
       <Route path="/register" element={<Signup />} />
       <Route path="/login" element={<Login />} />
       <Route path="/services" element={<Services />} />
+      <Route path="/checkout-success" element={<CheckoutSuccess />} />
       <Route path="/contact" element={<Contact />} />
+      <Route path="/session/:sessionId" element={<Session />} />
+
       <Route
         path="/users/profile/me"
         element={

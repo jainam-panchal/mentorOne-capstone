@@ -1,6 +1,36 @@
+import { BASE_URL, token } from '../../../config.js'
 import convertTime from '../../utils/convertTime.js'
+import { toast } from 'react-toastify'
 
 const SidePanel = ({ mentorId, sessionPrice, timeSlots }) => {
+  const sessionHandler = async () => {
+    try {
+      const res = await fetch(
+        `${BASE_URL}/sessions/checkout-session/${mentorId}`,
+        {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+
+      const data = await res.json()
+
+      if (!res.ok) {
+        throw new Error(data.message + 'Please try again')
+      }
+
+      console.log(data)
+
+      if (data.session.url) {
+        window.location.href = data.session.url
+      }
+    } catch (error) {
+      toast.error(error.message)
+    }
+  }
+
   console.log(mentorId, sessionPrice, timeSlots)
   return (
     <div className="shadow-panelShadow shadow-md p-3 lg:p-5 rounded-md">
@@ -32,7 +62,9 @@ const SidePanel = ({ mentorId, sessionPrice, timeSlots }) => {
         </ul>
       </div>
 
-      <button className="btn px-2 w-full rounded-md">Book Appointment</button>
+      <button onClick={sessionHandler} className="btn px-2 w-full rounded-md">
+        Book Appointment
+      </button>
     </div>
   )
 }

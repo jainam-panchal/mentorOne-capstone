@@ -41,7 +41,7 @@ const Dashboard = () => {
                 </div>
               )}
 
-              <div className="mt-8 ml-5">
+              <div className="mt-8 ml-5 min-h-[500px]">
                 {tab === 'overview' && (
                   <div>
                     <div className="flex items-center gap-4 mb-10">
@@ -102,3 +102,4 @@ const Dashboard = () => {
 }
 
 export default Dashboard
+      
